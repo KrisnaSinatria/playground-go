@@ -1,15 +1,15 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
+    "go-first/database"
+    "go-first/routes"
+    "github.com/gin-gonic/gin"
 )
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintln(w, "Hello, World!")
-}
-
 func main() {
-    http.HandleFunc("/hello", helloHandler)
-    http.ListenAndServe(":8080", nil)
+    database.Connect()
+
+    router := gin.Default()
+    routes.SetupRoutes(router)
+    router.Run(":8080")
 }
