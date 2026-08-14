@@ -7,9 +7,9 @@ import (
 )
 
 func SetupRoutes(router *gin.Engine) {
-	router.GET("/categories", controllers.GetCategories)
-	router.POST("/categories", controllers.CreateCategory)
-	router.GET("/categories/:id", controllers.GetCategoryByID)
-	router.PUT("/categories/:id", controllers.UpdateCategory)
-	router.DELETE("/categories/:id", controllers.DeleteCategory)
+	router.GET("/category-packages", controllers.GetCategoryPackages)
+	router.POST("/category-packages", controllers.CreateCategoryPackage)
+	router.GET("/category-packages/:id", controllers.GetCategoryPackageByID)
+	router.PUT("/category-packages/:id", controllers.UpdateCategoryPackage)
+	router.DELETE("/category-packages/:id", controllers.DeleteCategoryPackage)
 }
