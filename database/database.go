@@ -1,18 +1,17 @@
 package database
 
-
 import (
-    "gorm.io/driver/mysql"
-    "gorm.io/gorm"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
 
 func Connect() {
-    dsn := "root@tcp(127.0.0.1:3306)/go_playground?charset=utf8mb4&parseTime=True"
-    db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-    if err != nil {
-        panic("Gagal connect ke database: " + err.Error())
-    }
-    DB = db
+	dsn := "host=localhost user=postgres password=root dbname=db_test port=5432 sslmode=disable TimeZone=Asia/Makassar"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("Gagal connect ke database: " + err.Error())
+	}
+	DB = db
 }

@@ -5,7 +5,7 @@ import "time"
 
 type CategoryPackage struct {
     ID        uint      `json:"id" gorm:"primaryKey"`
-    Name      string    `json:"name"`
+    Name      string    `json:"name" binding:"required"`
     CreatedAt time.Time `json:"created_at"`
     UpdatedAt time.Time `json:"updated_at"`
 }

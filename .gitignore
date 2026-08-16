@@ -1,0 +1,27 @@
+# Binaries for programs and plugins (Hasil Compile Go)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary (Hasil compile test)
+*.test
+
+# Output dari go coverage tool
+*.out
+
+# Folder temporary build dan log milik tool Air
+/tmp/
+build-errors.log
+
+# Environment variables (Berisi kredensial db sensitif, mirip di Laravel)
+.env
+.env.local
+
+# Editor/IDE Config
+.idea/
+.vscode/
+
+# Project-specific metadata
+.go-learn

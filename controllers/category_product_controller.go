@@ -9,7 +9,7 @@ import (
 )
 
 func GetCategoryPackages(c *gin.Context) {
-	
+
 	var category_packages []models.CategoryPackage
 	result := database.DB.Find(&category_packages)
 	if result.Error != nil {
@@ -26,7 +26,11 @@ func CreateCategoryPackage(c *gin.Context) {
 		return
 	}
 
-	database.DB.Create(&input)
+	if err := database.DB.Create(&input).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(http.StatusCreated, input)
 }
 
