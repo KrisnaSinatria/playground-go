@@ -38,7 +38,7 @@ func GetCategoryPackageByID(c *gin.Context) {
 	id := c.Param("id")
 	var category_package models.CategoryPackage
 
-	if err := database.DB.First(&category_package, id).Error; err != nil {
+	if err := database.DB.Preload("Packages").First(&category_package, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
