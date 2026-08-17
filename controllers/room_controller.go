@@ -1,10 +1,12 @@
 package controllers
 
 import (
+	// "fmt"
 	"net/http"
-
+	// "os"
 	"go-first/database"
 	"go-first/models"
+	"go-first/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,19 +24,36 @@ func GetRooms(c *gin.Context) {
 }
 
 func CreateRoom(c *gin.Context) {
-	var input models.Room
+	name := c.PostForm("name")
+	no := c.PostForm("no")
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	fileHeader, err := c.FormFile("img")
+	// fmt.Printf("%+v\n", fileHeader)
+	// os.Exit(1)
+
+	var imgURL string
+
+	if err == nil {
+		url, uploadErr := utils.UploadToCloudinary(fileHeader)
+		if uploadErr != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengunggah gambar ke Cloudinary: " + uploadErr.Error()})
+			return
+		}
+		imgURL = url
 	}
 
-	if err := database.DB.Create(&input).Error; err != nil {
+	room := models.Room{
+		Name: name,
+		No:   no,
+		Img:  imgURL,
+	}
+
+	if err := database.DB.Create(&room).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, input)
+	c.JSON(http.StatusCreated, room)
 }
 
 func GetRoomByID(c *gin.Context) {
