@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"go-first/database"
 	"go-first/models"
 	"net/http"
@@ -24,12 +23,7 @@ func GetPackages(c *gin.Context) {
 func CreatePackage(c *gin.Context) {
 	var input models.Package
 
-	err := c.ShouldBindJSON(&input)
-	fmt.Printf("ERROR BIND: %+v\n", err)
-	fmt.Printf("INPUT SETELAH BIND: %+v\n", input)
-	
-
-	if err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

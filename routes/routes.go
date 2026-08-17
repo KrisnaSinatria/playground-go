@@ -18,4 +18,11 @@ func SetupRoutes(router *gin.Engine) {
 	router.GET("/packages/:id", controllers.GetPackageByID)
 	router.PUT("/packages/:id", controllers.UpdatePackage)
 	router.DELETE("/packages/:id", controllers.DeletePackage)
+
+	// Routes untuk Room
+	router.GET("/rooms", controllers.GetRooms)
+	router.POST("/rooms", controllers.CreateRoom)
+	router.GET("/rooms/:id", controllers.GetRoomByID)
+	router.PUT("/rooms/:id", controllers.UpdateRoom)
+	router.DELETE("/rooms/:id", controllers.DeleteRoom)
 }

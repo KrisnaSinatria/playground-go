@@ -17,6 +17,7 @@ func main() {
 		&models.Admin{},
 		&models.Staff{},
 		&models.Customer{},
+		&models.Room{},
 	)
 	if err != nil {
 		panic("Gagal melakukan AutoMigrate: " + err.Error())
