@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	
+
 	if err := godotenv.Load(); err != nil {
 		log.Println("Peringatan: File .env tidak ditemukan, menggunakan environment OS bawaan")
 	}
@@ -19,12 +19,6 @@ func main() {
 	database.Connect()
 
 	err := database.DB.AutoMigrate(
-		&models.CategoryPackage{},
-		&models.Package{},
-		&models.User{},
-		&models.Admin{},
-		&models.Staff{},
-		&models.Customer{},
 		&models.Room{},
 	)
 	if err != nil {
