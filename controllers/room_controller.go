@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	// "fmt"
+	"fmt"
 	"net/http"
 	// "os"
 	"go-first/database"
@@ -27,8 +27,8 @@ func CreateRoom(c *gin.Context) {
 	name := c.PostForm("name")
 	no := c.PostForm("no")
 
-	fileHeader, err := c.FormFile("img")
-	// fmt.Printf("%+v\n", fileHeader)
+	fileHeader, err := c.FormFile("im")
+	fmt.Printf("%+v\n", err)
 	// os.Exit(1)
 
 	var imgURL string
