@@ -1,37 +1,25 @@
 package main
 
 import (
-	"go-first/database"
-	"go-first/models"
-	"go-first/routes"
 	"log"
 
-	"github.com/gin-gonic/gin"
+	"go-first/app/Shared/Database"
+	"go-first/app/Shared/Router"
+
 	"github.com/joho/godotenv"
 )
 
 func main() {
-	
 	if err := godotenv.Load(); err != nil {
 		log.Println("Peringatan: File .env tidak ditemukan, menggunakan environment OS bawaan")
 	}
 
-	database.Connect()
+	db := database.Connect()
 
-	err := database.DB.AutoMigrate(
-		&models.CategoryPackage{},
-		&models.Package{},
-		&models.User{},
-		&models.Admin{},
-		&models.Staff{},
-		&models.Customer{},
-		&models.Room{},
-	)
-	if err != nil {
-		panic("Gagal melakukan AutoMigrate: " + err.Error())
+	r := router.SetupRouter(db)
+
+	log.Println("Server REST API berjalan di port :8080")
+	if err := r.Run(":8080"); err != nil {
+		log.Fatalf("Gagal menjalankan server: %v", err)
 	}
-
-	router := gin.Default()
-	routes.SetupRoutes(router)
-	router.Run(":8080")
 }

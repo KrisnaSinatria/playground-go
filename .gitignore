@@ -23,5 +23,4 @@ build-errors.log
 .idea/
 .vscode/
 
-# Project-specific metadata
 .go-learn
